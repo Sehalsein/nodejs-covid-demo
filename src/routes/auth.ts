@@ -37,7 +37,11 @@ router.post(
             },
           );
 
-          return res.json({ token, email: user.email });
+          return res.json({
+            token,
+            email: user.email,
+            history: user.searchHistory,
+          });
         });
       } catch (error) {
         return next(error);
