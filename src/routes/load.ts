@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import express, { Request, Response } from 'express';
 import fs from 'fs';
 import { STATS_COLLECTION } from '../constant/db';

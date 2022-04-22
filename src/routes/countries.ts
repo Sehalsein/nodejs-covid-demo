@@ -50,16 +50,23 @@ router.get('/compare', async (req: Request, res: Response) => {
  * @apiParam {String} id Country ISO Code
  */
 router.get('/:id', async (req: Request, res: Response) => {
-  const { id: key } = req.params;
+  try {
+    const { id: key } = req.params;
 
-  if (!key) {
-    throw new Error('Invalid Country Code Provided');
+    if (!key) {
+      throw new Error('Invalid Country Code Provided');
+    }
+
+    // const country = await findCountryById(key);
+    const country = await findCountryByIdFile(key);
+
+    return res.status(200).json(country);
+  } catch (error) {
+    return res.status(500).json({
+      error: 'ERROR',
+      message: (error as Error).message,
+    });
   }
-
-  // const country = await findCountryById(key);
-  const country = await findCountryByIdFile(key);
-
-  return res.status(200).json(country);
 });
 
 export default router;

@@ -46,7 +46,6 @@ passport.use(
     async (email: string, password: string, done: any) => {
       try {
         const user = await saveUser({ email, password });
-
         return done(null, user, { message: 'Register in Successfully' });
       } catch (error) {
         return done(error);

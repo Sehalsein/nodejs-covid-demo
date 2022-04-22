@@ -6,6 +6,7 @@ import client from '../db';
  * @description Get all countries
  * @returns {Promise<Array<Object>>}
  */
+/* istanbul ignore next */
 export const findAllCountries = async () => {
   const data = await client
     .db()
@@ -55,6 +56,7 @@ export const findAllCountriesByFile = async () => {
  * @param id string
  * @returns {Promise<Object>}
  */
+/* istanbul ignore next */
 export const findCountryById = async (id: string) => {
   const country = await client
     .db()
@@ -90,6 +92,7 @@ export const findCountryByIdFile = async (id: string) => {
  * @param ids Array<string>
  * @returns {Promise<Array<Object>>}
  */
+/* istanbul ignore next */
 export const findCountryByIds = async (ids: string[]) => {
   const countries = await client
     .db()

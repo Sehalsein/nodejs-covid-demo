@@ -20,7 +20,6 @@ router.post(
       try {
         if (err || !user) {
           const error = new Error('Invalid email or password');
-
           return next(error);
         }
 

@@ -15,14 +15,21 @@ const router = express.Router();
  * @apiParam {String} id Country Name
  */
 router.get('/:id', async (req: Request, res: Response) => {
-  const { id: location } = req.params;
+  try {
+    const { id: location } = req.params;
 
-  if (!location) {
-    throw new Error('Invalid Location Provided');
+    if (!location) {
+      throw new Error('Invalid Location Provided');
+    }
+
+    const data = await findAllVaccinationByLocation(location);
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.status(500).json({
+      error: 'ERROR',
+      message: (error as Error).message,
+    });
   }
-
-  const data = await findAllVaccinationByLocation(location);
-  return res.status(200).json(data);
 });
 
 /**

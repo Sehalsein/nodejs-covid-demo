@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { parse } from 'csv-parse/sync';
 import express, { Request, Response } from 'express';
 import fs from 'fs';
