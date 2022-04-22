@@ -40,8 +40,15 @@ router.get('/:id', async (req: Request, res: Response) => {
  * @apiDescription Get Vaccinations for a list of country
  */
 router.get('/', async (_req: Request, res: Response) => {
-  const data = await findAllVaccination();
-  return res.status(200).json(data);
+  try {
+    const data = await findAllVaccination();
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.status(500).json({
+      error: 'ERROR',
+      message: (error as Error).message,
+    });
+  }
 });
 
 export default router;

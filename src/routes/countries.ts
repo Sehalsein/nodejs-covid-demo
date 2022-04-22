@@ -16,8 +16,15 @@ const router = express.Router();
  */
 router.get('/', async (_req: Request, res: Response) => {
   // const data = await findAllCountries();
-  const data = await findAllCountriesByFile();
-  return res.status(200).json(data);
+  try {
+    const data = await findAllCountriesByFile();
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.status(500).json({
+      error: 'ERROR',
+      message: (error as Error).message,
+    });
+  }
 });
 
 /**
@@ -29,16 +36,25 @@ router.get('/', async (_req: Request, res: Response) => {
  * @apiQuery {String} code Country ISO Code
  */
 router.get('/compare', async (req: Request, res: Response) => {
-  const { code } = req.query;
+  try {
+    const { code } = req.query;
 
-  if (!code) {
-    return res.status(200).json([]);
+    if (!code) {
+      return res.status(200).json([]);
+    }
+
+    // const countries = findCountryByIds(code.toString().split(','));
+    const countries = await findCountryByIdsFromFile(
+      code.toString().split(','),
+    );
+
+    return res.status(200).json(countries);
+  } catch (error) {
+    return res.status(500).json({
+      error: 'ERROR',
+      message: (error as Error).message,
+    });
   }
-
-  // const countries = findCountryByIds(code.toString().split(','));
-  const countries = await findCountryByIdsFromFile(code.toString().split(','));
-
-  return res.status(200).json(countries);
 });
 
 /**
